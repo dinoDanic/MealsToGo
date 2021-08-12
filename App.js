@@ -1,6 +1,8 @@
 import React from "react";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
 import { Platform } from "react-native";
+import { ThemeProvider } from "styled-components/native";
+import { theme } from "./src/insfrastructure/theme";
 
 import RestaurantsScreen from "./src/features/restaurants/screens/retaurants.screen";
 
@@ -10,8 +12,10 @@ const isAndroid = Platform.OS === "android";
 export default function App() {
   return (
     <>
-      <RestaurantsScreen />
-      <ExpoStatusBar style="auto" />
+      <ThemeProvider theme={theme}>
+        <RestaurantsScreen />
+        <ExpoStatusBar style="auto" />
+      </ThemeProvider>
     </>
   );
 }

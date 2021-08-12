@@ -16,15 +16,24 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
     isClosedTemporarily,
   } = restaurant;
   return (
-    <Card elevation={5}>
-      <Card.Cover key={name} source={{ uri: photos[0] }} />
+    <RestaurantCard>
+      <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
       <Title>{name}</Title>
-    </Card>
+    </RestaurantCard>
   );
 };
 
 const Title = styled.Text`
   padding: 16px;
+  color: ${(props) => props.theme.colors.ui.primary};
+`;
+
+const RestaurantCard = styled(Card)`
+  background-color: white;
+`;
+
+const RestaurantCardCover = styled(Card.Cover)`
+  background-color: white;
 `;
 
 export default RestaurantInfoCard;
