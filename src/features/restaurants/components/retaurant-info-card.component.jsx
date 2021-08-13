@@ -1,39 +1,63 @@
 import React from "react";
-import styled from "styled-components/native";
+import { SvgXml } from "react-native-svg";
 
-import { Card } from "react-native-paper";
+import Spacer from "../../../components/spacer/spacer.component";
+
+import star from "../../../assets/star";
+import open from "../../../assets/open";
+import Text from "../../../components/typography/text.component";
+
+import {
+  Icon,
+  Info,
+  RestaurantCard,
+  RestaurantCardCover,
+  Address,
+  Section,
+  Rating,
+  SeactionEnd,
+} from "./restaurnat-info-card-styles";
 
 const RestaurantInfoCard = ({ restaurant = {} }) => {
   const {
-    name = "some resturant",
-    icon,
+    name = "Some Resturant",
+    icon = "https://icon-library.com/images/icon-sleep/icon-sleep-27.jpg",
     photos = [
       "https://www.diana-food.com/fileadmin/diana_food/5_Landing_pages/Culinary_Creations/Diana_Food_Culinary_Creations_3col_424x424.jpg",
     ],
-    address = "some street",
+    address = "Some street",
     isOpenNow = true,
     rating = 3,
-    isClosedTemporarily,
+    isClosedTemporarily = true,
   } = restaurant;
+
+  const ratingArray = Array.from(new Array(Math.floor(rating)));
+  console.log(ratingArray);
   return (
     <RestaurantCard>
       <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
-      <Title>{name}</Title>
+      <Info>
+        <Text variant="label">{name}</Text>
+        <Section>
+          <Rating>
+            {ratingArray.map(() => (
+              <SvgXml xml={star} width={20} height={20} />
+            ))}
+          </Rating>
+          <SeactionEnd>
+            {isClosedTemporarily && (
+              <Text variant="error">Closed Temporarily</Text>
+            )}
+            <Spacer size="large" position="left" />
+            {isOpenNow && <SvgXml xml={open} width={25} height={25} />}
+            <Spacer size="large" position="left" />
+            <Icon source={{ uri: icon }} />
+          </SeactionEnd>
+        </Section>
+        <Address>{address}</Address>
+      </Info>
     </RestaurantCard>
   );
 };
-
-const Title = styled.Text`
-  padding: 16px;
-  color: ${(props) => props.theme.colors.ui.primary};
-`;
-
-const RestaurantCard = styled(Card)`
-  background-color: white;
-`;
-
-const RestaurantCardCover = styled(Card.Cover)`
-  background-color: white;
-`;
 
 export default RestaurantInfoCard;
