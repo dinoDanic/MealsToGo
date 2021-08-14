@@ -18,14 +18,11 @@ const Search = () => {
       <Searchbar
         placeholder="Search for a location"
         icon="map"
-        value={keyword}
+        value={searchKeyword}
         onSubmitEditing={() => {
           search(searchKeyword);
         }}
         onChangeText={(text) => {
-          if (!text.length) {
-            return;
-          }
           setSearchKeyword(text);
         }}
       />

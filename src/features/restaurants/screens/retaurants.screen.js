@@ -11,7 +11,6 @@ import Search from "../components/search.component";
 
 const RestaurantsScreen = ({ navigation }) => {
   const { restaurants, isLoading } = useContext(RestaurantsContext);
-  console.log({ navigation });
   return (
     <SafeArea>
       <Loading isLoading={isLoading} />
