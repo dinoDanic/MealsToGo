@@ -18,21 +18,21 @@ import {
   SeactionEnd,
 } from "./restaurnat-info-card-styles";
 
-const RestaurantInfoCard = ({ restaurant = {} }) => {
+const RestaurantInfoCard = ({ restaurant = {} }, props) => {
   const {
     name = "Some Resturant",
     icon = "https://icon-library.com/images/icon-sleep/icon-sleep-27.jpg",
     photos = [
       "https://www.diana-food.com/fileadmin/diana_food/5_Landing_pages/Culinary_Creations/Diana_Food_Culinary_Creations_3col_424x424.jpg",
     ],
-    address = "Some street",
+    address = restaurant.vicinity,
     isOpenNow = true,
     rating = 3,
     isClosedTemporarily = true,
+    placeId,
   } = restaurant;
 
   const ratingArray = Array.from(new Array(Math.floor(rating)));
-  console.log(ratingArray);
   return (
     <RestaurantCard>
       <RestaurantCardCover key={name} source={{ uri: photos[0] }} />
@@ -40,8 +40,13 @@ const RestaurantInfoCard = ({ restaurant = {} }) => {
         <Text variant="label">{name}</Text>
         <Section>
           <Rating>
-            {ratingArray.map(() => (
-              <SvgXml xml={star} width={20} height={20} />
+            {ratingArray.map((_, i) => (
+              <SvgXml
+                xml={star}
+                key={`start-${placeId}-${i}`}
+                width={20}
+                height={20}
+              />
             ))}
           </Rating>
           <SeactionEnd>
