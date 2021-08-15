@@ -1,27 +1,31 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import MapView from "react-native-maps";
-
-import Search from "../components/search.component";
 import styled from "styled-components/native";
-import MapCallout from "../components/map-callout.component";
 
 import { LocationContext } from "../../../services/location/location.context";
-import { RestaurantsContext } from "../../../services/restarurants/restaurants.context";
-import { useEffect } from "react";
+import { RestaurantsContext } from "../../../services/restaurants/restaurants.context";
 
-const MapScreen = ({ navigation }) => {
+import { Search } from "../components/search.component";
+import { MapCallout } from "../components/map-callout.component";
+
+const Map = styled(MapView)`
+  height: 100%;
+  width: 100%;
+`;
+
+export const MapScreen = ({ navigation }) => {
   const { location } = useContext(LocationContext);
   const { restaurants = [] } = useContext(RestaurantsContext);
 
-  const [latDelat, setLatDelat] = useState(0);
+  const [latDelta, setLatDelta] = useState(0);
 
-  const { viewport, lat, lng } = location;
+  const { lat, lng, viewport } = location;
 
   useEffect(() => {
     const northeastLat = viewport.northeast.lat;
     const southwestLat = viewport.southwest.lat;
 
-    setLatDelat(northeastLat - southwestLat);
+    setLatDelta(northeastLat - southwestLat);
   }, [location, viewport]);
 
   return (
@@ -31,7 +35,7 @@ const MapScreen = ({ navigation }) => {
         region={{
           latitude: lat,
           longitude: lng,
-          latitudeDelta: latDelat,
+          latitudeDelta: latDelta,
           longitudeDelta: 0.02,
         }}
       >
@@ -48,7 +52,7 @@ const MapScreen = ({ navigation }) => {
               <MapView.Callout
                 onPress={() =>
                   navigation.navigate("RestaurantDetail", {
-                    restaurant: restaurant,
+                    restaurant,
                   })
                 }
               >
@@ -61,9 +65,3 @@ const MapScreen = ({ navigation }) => {
     </>
   );
 };
-
-const Map = styled(MapView)`
-  flex: 1;
-`;
-
-export default MapScreen;

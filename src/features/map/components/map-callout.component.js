@@ -1,10 +1,7 @@
 import React from "react";
-import { Image } from "react-native";
-import styled from "styled-components/native";
-import CompactRestaurantInfo from "../../../components/restaurant/compact-restaurant-info.component";
 
-const MapCallout = ({ restaurant }) => {
-  return <CompactRestaurantInfo restaurant={restaurant} />;
-};
+import { CompactRestaurantInfo } from "../../../components/restaurant/compact-restaurant-info.component";
 
-export default MapCallout;
+export const MapCallout = ({ restaurant }) => (
+  <CompactRestaurantInfo isMap restaurant={restaurant} />
+);
