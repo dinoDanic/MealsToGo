@@ -9,7 +9,7 @@ import { LocationContext } from "../../../services/location/location.context";
 import { RestaurantsContext } from "../../../services/restarurants/restaurants.context";
 import { useEffect } from "react";
 
-const MapScreen = () => {
+const MapScreen = ({ navigation }) => {
   const { location } = useContext(LocationContext);
   const { restaurants = [] } = useContext(RestaurantsContext);
 
@@ -45,7 +45,13 @@ const MapScreen = () => {
                 longitude: restaurant.geometry.location.lng,
               }}
             >
-              <MapView.Callout>
+              <MapView.Callout
+                onPress={() =>
+                  navigation.navigate("RestaurantDetail", {
+                    restaurant: restaurant,
+                  })
+                }
+              >
                 <MapCallout restaurant={restaurant} />
               </MapView.Callout>
             </MapView.Marker>

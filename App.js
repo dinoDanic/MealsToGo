@@ -13,6 +13,7 @@ import { theme } from "./src/insfrastructure/theme";
 
 import { RestaurantsContextProvider } from "./src/services/restarurants/restaurants.context";
 import { LocationContextProvider } from "./src/services/location/location.context";
+import { FavoritesContextProvider } from "./src/services/favorites/favorites.context";
 import Navigation from "./src/insfrastructure/navigation";
 
 // eslint-disable-next-line no-unused-vars
@@ -33,11 +34,13 @@ export default function App() {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <LocationContextProvider>
-          <RestaurantsContextProvider>
-            <Navigation />
-          </RestaurantsContextProvider>
-        </LocationContextProvider>
+        <FavoritesContextProvider>
+          <LocationContextProvider>
+            <RestaurantsContextProvider>
+              <Navigation />
+            </RestaurantsContextProvider>
+          </LocationContextProvider>
+        </FavoritesContextProvider>
         <ExpoStatusBar style="auto" />
       </ThemeProvider>
     </>
